@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}AGV设备管理{% endblock %}
+{% block style %}
+    .panel {
+    margin:100px 200px;
+    }
+    .row1{
+    margin-top:25px;
+    }
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                AGV信息编辑
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <form role="form" id="agv_edit_form">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="agv_id">AGV编号</label>
+                            <input type="text" class="form-control" id="agv_id" name="agv_id" placeholder="AGV编号"
+                                   maxlength="11" min="11" value="{{ agv_info.agv_id }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="situation">设备情况</label>
+                            <select class="form-control" name="situation">
+                                {% if agv_info.situation == 1 %}
+                                    <option value="1" selected>良好</option>
+                                    <option value="2">待修</option>
+                                {% else %}
+                                    <option value="1">良好</option>
+                                    <option value="2" selected>待修</option>
+                                {% endif %}
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="state">运行状况</label>
+                            <select class="form-control" name="state">
+                                {% if agv_info.state == 2 %}
+                                    <option value="1">作业</option>
+                                    <option value="2" selected>空闲</option>
+                                {% else %}
+                                    <option value="1" selected>作业</option>
+                                    <option value="2">空闲</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="row1">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button class="btn btn-success center-block" form="agv-edit" type="button" formmethod="post"
+                                id="agv_edit">
+                            确认
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#agv_edit").click(function () {
+            //  校验表单不能为空 正则匹配这里可以加
+            if (
+                $("#agv_id").val() == '' ||
+                $("#situation").val() == '' ||
+                $("#state").val() == ''
+            ) {
+                alert('必填项不能为空！')
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: '/agv_edit/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: $("#agv_edit_form").serialize(),
+                    success: function (ret) {
+                        if (ret.code === 0) {
+                            alert(ret.msg);
+                            {#$("#vessel-form")[0].reset();#}
+                            window.location.href = '/agv_equipment/'
+                        } else {
+                            alert(ret.msg)
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+{% endblock %}

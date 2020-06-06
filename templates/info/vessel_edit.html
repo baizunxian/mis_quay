@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}船舶记录修改{% endblock %}
+{% block style %}
+    .row{
+    margin:20px;}
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                船舶记录修改
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class=container-fluid>
+                <form role="form" id="vessel-form">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="en_name">英文船名</label>
+                            <input type="hidden" value="{{ vessel_info.id }}" name="v_id">
+                            <input type="text" class="form-control" id="en_name" name="en_name" placeholder="请输入英文船名"
+                                   maxlength="18" value="{{ vessel_info.en_name }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="cn_name">中文船名</label>
+                            <input type="text" class="form-control" id="cn_name" name="cn_name" placeholder="请输入中文船名"
+                                   maxlength="18" value="{{ vessel_info.cn_name }}">
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary center-block" form="vessel-form" type="button" formmethod="post"
+                                id="vessel_btn">确认修改
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#vessel_btn").click(function () {
+            //  校验表单不能为空 正则匹配这里可以加
+            if (
+                $("#en_name").val() == '' ||
+                $("#cn_name").val() == ''
+            ) {
+                alert('必填项不能为空！')
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: '/vessel_edit/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: $("#vessel-form").serialize(),
+                    success: function (ret) {
+                        if (ret.code === 0) {
+                            alert(ret.msg);
+                            window.location.href= '/vesselinfo_maintain/'
+                        } else {
+                            alert(ret.msg)
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+{% endblock %}

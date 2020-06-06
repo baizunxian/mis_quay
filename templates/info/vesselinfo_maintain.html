@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}船舶信息维护{% endblock %}
+{% block style %}
+    .panel {
+    margin:20px
+    }
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>船舶信息维护</h4>
+        </div>
+        <div class="panel-body">
+            <div class=container-fluid>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="/vessel_add/"><button class="btn btn-primary">添加记录</button></a>
+                    </div>
+                    <div class="col-md-3 col-md-offset-6">
+                        <ol class="breadcrumb">
+                            <input type="text" id="search_input" placeholder="请输入英文船名查询">
+                            <button onclick="search()">search</button>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <table class="table table-striped table- hover table-bordered" id="tables">
+                            <thead>
+                            <tr>
+                                <th>记录号</th>
+                                <th>英文船名</th>
+                                <th>中文船名</th>
+{#                                <th>进口航次</th>#}
+{#                                <th>出口航次</th>#}
+{#                                <th>计划靠泊时间</th>#}
+{#                                <th>计划离泊时间</th>#}
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbodys">
+                            {% for vesselinfo in vesselinfo_list %}
+                                <tr>
+                                    <td>{{ vesselinfo.id }}</td>
+                                    <td>{{ vesselinfo.en_name }}</td>
+                                    <td>{{ vesselinfo.cn_name }}</td>
+{#                                    <td>{{ vesselinfo.voy_im_x }}</td>#}
+{#                                    <td>{{ vesselinfo.voy_ex_x }}</td>#}
+{#                                    <td>{{ vesselinfo.ETB }}</td>#}
+{#                                    <td>{{ vesselinfo.ETD }}</td>#}
+                                    <td class="center-block" style="text-align: center">
+                                        <a href="/vessel_edit/?v_id={{ vesselinfo.id }}">
+                                            <button class="btn btn-warning btn-sm ">编辑</button>
+                                        </a>
+                                        <button class="btn btn-danger btn-sm "
+                                                onclick="delete_vessel(this, {{ vesselinfo.id }})">删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function delete_vessel(tr, id) {
+            console.log(id)
+            var msg = confirm('确定删除么?');
+            if (msg == true) {
+                $.ajax({
+                    type: 'post',
+                    url: '/delete_vessel/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: {
+                        v_id: id
+                    },
+                    success: function (ret) {
+                        if (ret.code == 0) {
+                            $(tr).closest('tr').remove();
+                        }
+                    }
+                });
+            } else {
+                return false
+            }
+        }
+
+        function search() {
+            console.log($('#search_input').val());
+            var en_name = $('#search_input').val();
+            $.ajax({
+                type: 'post',
+                url: '/search_vessel/',
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                data: {
+                    en_name: en_name
+                },
+                success: function (ret) {
+                    var vessel_list = ret.vessel_list
+                    var html = '';
+                    if (ret.code == 0) {
+                        $('#tbodys').html('');
+                        for (var i=0; i<vessel_list.length; i++){
+                            html += "<tr>\n" +
+                            "<td>"+vessel_list[i]['id']+"</td>\n" +
+                            "<td>"+vessel_list[i]['en_name']+"</td>\n" +
+                            "<td>"+vessel_list[i]['cn_name']+"</td>\n" +
+                            {#"<td>"+vessel_list[i]['voy_im_x']+"</td>\n" +#}
+                            {#"<td>"+vessel_list[i]['voy_ex_x']+"</td>\n" +#}
+                            {#"<td>"+vessel_list[i]['ETB']+"</td>\n" +#}
+                            {#"<td>"+vessel_list[i]['ETD']+"</td>\n" +#}
+                            "<td class=\"center-block\" style=\"text-align: center\" >\n" +
+                            "<a href=\"/edit_vesse/"+vessel_list[i]['id']+"\"><button class=\"btn btn-warning btn-sm \">编辑</button></a>\n" +
+                            "<button class=\"btn btn-danger btn-sm \" onclick=\"delete_vessel(this, "+vessel_list[i]['id']+")\">删除</button>\n" +
+                            "</td>\n" +
+                            "</tr>"
+                        }
+                        $('#tbodys').append(html)
+                    }
+                }
+            });
+        }
+    </script>
+
+{% endblock %}

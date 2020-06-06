@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}船舶作业管理{% endblock %}
+{% block style %}
+    .panel {
+     margin:20px
+    }
+    #container-search{
+     margin:20px
+    }
+{% endblock %}
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			船舶作业管理
+		</h3>
+	</div>
+	<div class="panel-body">
+        <div class=container-fluid>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <ol class="breadcrumb">
+                        <input type="text" placeholder="请输英文船名查询" id="en_name_search"><button id="search">search</button>
+                    </ol>
+                </div>
+            </div>
+           <div class="row">
+                <div class="col-md-12 ">
+                    <table class="table table-striped table- hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>记录号</th>
+                                <th>英文船名</th>
+                                <th>中文船名</th>
+                                <th>进口航次</th>
+                                <th>出口航次</th>
+                                <th>计划靠泊时间</th>
+                                <th>计划离泊时间</th>
+                                <th>实际靠泊时间</th>
+                                <th>实际离泊时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodys">
+                        {% for voy in voy_list %}
+                            <tr>
+                                    <td>{{ voy.id }}</td>
+                                    <td>{{ voy.vessel.en_name }}</td>
+                                    <td>{{ voy.vessel.cn_name }}</td>
+                                    <td>{{ voy.voy_im }}</td>
+                                    <td>{{ voy.voy_ex }}</td>
+                                    <td>{{ voy.ETB }}</td>
+                                    <td>{{ voy.ETD }}</td>
+                                    {% if  voy.ATB %}
+                                        <td>{{ voy.ATB }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                                    {% if  voy.ATD %}
+                                        <td>{{ voy.ATD }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                                <td >
+                                    <button class="btn btn-primary btn-xs " onclick="leave_and_stop('{{ voy.id }}','stop')">确认靠泊</button>
+                                    <a href="/unloading_control/?v_id={{ voy.id }}"><button class="btn btn-primary btn-xs ">开始卸船</button></a>
+                                    <a href="/loading_control/?v_id={{ voy.id }}"><button class="btn btn-primary btn-xs ">开始装船</button></a>
+                                    <button class="btn btn-danger btn-xs" onclick="leave_and_stop('{{ voy.id}}','leave')">确认离泊</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+    // 靠岗，离岗接口
+    function leave_and_stop(v_id, type) {
+        $.ajax({
+         url: '/leave_and_stop/',
+         type: 'post',
+         headers: {"X-CSRFToken": "{{ csrf_token }}"},
+         data: {
+             v_id: v_id,
+             type: type
+         },
+         success: function (req){
+            if (req.code === 0){
+                myAlert1(req.msg);
+                window.location.reload()
+            }
+            else {
+                myAlert1(req.msg)
+            }
+         }
+        })
+    }
+    $("#search").click(function () {
+        var en_name = $("#en_name_search").val();
+        $.ajax({
+            url: '/search_by_en_name/',
+            type: 'post',
+            headers: {"X-CSRFToken": "{{ csrf_token }}"},
+            data: {
+             en_name: en_name
+            },
+            success: function (req) {
+                {#console.log(req)#}
+                var voy_list = req.voy_list;
+                var voy_len = req.voy_list.length;
+                var html = '';
+                var stop = ',stop';
+                var leave = ',leave';
+                if (req.code === 0){
+                    $('#tbodys').html('');
+                    for (var i=0; i<voy_len ; i++){
+                        var ATB = voy_list[i]['ATB'];
+                        var ATD = voy_list[i]['ATD'];
+                        if (ATB !=null){
+                            ATB = voy_list[i]['ATB'];
+                        }else {
+                            ATB =''
+                        }
+                        if (ATD !=null){
+                            ATD = voy_list[i]['ATD'];
+                        }else {
+                            ATD =''
+                        }
+                           html +="<tr>\n" +
+                            "<td>"+voy_list[i]['id']+"</td>\n" +
+                            "<td>"+voy_list[i]['vessel_en']+"</td>\n" +
+                            "<td>"+voy_list[i]['vessel_cn']+"</td>\n" +
+                            "<td>"+voy_list[i]['voy_im']+"</td>\n" +
+                            "<td>"+voy_list[i]['voy_ex']+"</td>\n" +
+                            "<td>"+voy_list[i]['ETB']+"</td>\n" +
+                            "<td>"+voy_list[i]['ETD']+"</td>\n" +
+                            "<td>"+ATB+"</td>\n" +
+                            "<td>"+ATD+"</td>\n" +
+                            {#"<td>"+vessel_list[i]['ETB']+"</td>\n" +#}
+                            {#"<td>"+vessel_list[i]['ETD']+"</td>\n" +#}
+                            "<td>\n" +
+                            "<button class=\"btn btn-primary btn-xs \" onclick=\"leave_and_stop("+voy_list[i]['id']+",'stop')\">确认靠泊</button>\n" +
+                            "<button class=\"btn btn-danger btn-xs \" onclick=\"leave_and_stop("+voy_list[i]['id']+",'leave')\">确认离泊</button></a>\n" +
+                            "</td>\n" +
+                            "</tr>"
+                    }
+                    $('#tbodys').append(html)
+                }
+            }
+
+        })
+    })
+    </script>
+{% endblock %}

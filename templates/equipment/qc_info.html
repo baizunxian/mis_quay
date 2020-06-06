@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}岸桥设备管理{% endblock %}
+{% block style %}
+       .panel {
+     margin:20px
+    }
+{% endblock %}
+{% block content %}
+  <div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			岸桥基本信息
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+             <div class="row">
+                <div class="col-md-8 col-md-offset-2 ">
+                    <table class="table table-striped table- hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>岸桥编号</th>
+                                <th>前小车起升速度</th>
+                                <th>后小车起升速度</th>
+                                <th>前小车行驶速度</th>
+                                <th>后小车行驶速度</th>
+                                <th>中转平台空位</th>
+                                <th>前伸距</th>
+                                <th>后伸距</th>
+                                <th>轨上起升高度</th>
+                                <th>轨下起升高度</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                <td class="center-block">
+                                    <button class="btn btn-success btn-sm ">编辑</button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

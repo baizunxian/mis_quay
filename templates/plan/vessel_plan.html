@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}船舶计划查询{% endblock %}
+{% block style %}
+       .panel {
+     margin:20px
+    }
+    #container-search{
+     margin:20px
+    }
+{% endblock %}
+{% block content %}
+ <div class="panel panel-default">
+	<div class="panel-heading">
+            <h4>船舶计划</h4>
+    </div>
+	<div class="panel-body">
+        <div class="container-fluid" id="container-search">
+            <div class="row">
+                      <div class="col-md-4">
+                        靠泊时间：<input type="datetime-local" id="b_time_plan">
+                      </div>
+                      <div class="col-md-4">
+                        离泊时间：<input type="datetime-local" id="d_time_plan">
+                      </div>
+                      <div class="col-md-2">
+                        <button>查询</button>
+                      </div>
+            </div>
+        </div>
+        <div class=container-fluid>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <table class="table table-striped table- hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>记录号</th>
+                                <th>英文船名</th>
+                                <th>中文船名</th>
+                                <th>进口航次</th>
+                                <th>出口航次</th>
+                                <th>计划靠泊时间</th>
+                                <th>计划离泊时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for voy in voy_list %}
+                            <tr>
+                                <td>{{ voy.id }}</td>
+                                <td>{{ voy.vessel.cn_name }}</td>
+                                <td>{{ voy.vessel.en_name }}</td>
+                                <td>{{ voy.voy_im }}</td>
+                                <td>{{ voy.voy_ex }}</td>
+                                <td>{{ voy.ETB }}</td>
+                                <td>{{ voy.ETD }}</td>
+                            <td class="center-block">
+                                <a href="/unloading_planning_page/?voy_id={{ voy.id }}"><button class="btn btn-primary btn-xs" id="qc-plan">卸船计划</button></a>
+                                <a href="/loading_planning_page/?voy_id={{ voy.id }}"><button class="btn btn-primary btn-xs" id="qc-plan">装船计划</button></a>
+                                <a href="/qc_plan/?v_id={{ voy.vessel.id }}&voy={{ voy.id }}"><button class="btn btn-primary btn-xs" id="qc-plan">岸桥计划</button></a>
+                            </td>
+                            </tr>
+                         {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}岸桥设备管理{% endblock %}
+{% block style %}
+    .panel {
+    margin:55px 200px;
+    }
+    .row1{
+    margin-top:25px;
+    }
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                岸桥信息编辑
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <form role="form" id="qc_edit_form">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="qc_id">岸桥编号</label>
+                            <input type="text" class="form-control" id="qc_id" name="qc_id" placeholder="岸桥编号"
+                                   maxlength="11" min="11" value="{{ qc_info.qc_id }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="sea_state">海侧吊具运行状况</label>
+                            <select class="form-control" name="sea_state">
+                                {% if qc_info.sea_state == 2 %}
+                                    <option value="1">作业</option>
+                                    <option value="2" selected>空闲</option>
+                                {% else %}
+                                    <option value="1" selected>作业</option>
+                                    <option value="2">空闲</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="land_state">陆侧吊具运行状况</label>
+                            <select class="form-control" name="land_state">
+                                {% if qc_info.land_state == 2 %}
+                                    <option value="1">作业</option>
+                                    <option value="2" selected>空闲</option>
+                                {% else %}
+                                    <option value="1" selected>作业</option>
+                                    <option value="2">空闲</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="situation">设备情况</label>
+                            <select class="form-control" name="situation">
+                                {% if qc_info.situation == 1 %}
+                                    <option value="1" selected>良好</option>
+                                    <option value="2">待修</option>
+                                {% else %}
+                                    <option value="1">良好</option>
+                                    <option value="2" selected>待修</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="middle_space">中转平台空位</label>
+                            <input type="number" class="form-control" id="middle_space" name="middle_space"
+                                   placeholder="中转平台空位" maxlength="1" min="1" value="{{ qc_info.middle_space }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="weight_max">吊具承重</label>
+                            <input type="text" class="form-control" id="weight_max" name="weight_max" placeholder="吊具承重"
+                                   maxlength="3" min="3" value="{{ qc_info.weight_max }}">
+                        </div>
+                    </div>
+
+                </form>
+                <div class="row1">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button class="btn btn-success center-block" form="qc-edit" type="button" formmethod="post"
+                                id="qc_edit">确认
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        $("#qc_edit").click(function () {
+            //  校验表单不能为空 正则匹配这里可以加
+            if (
+                $("#qc_id").val() == '' ||
+                $("#sea_state").val() == '' ||
+                $("#land_state").val() == '' ||
+                $("#situation").val() == '' ||
+                $("#middle_space").val() == '' ||
+                $("#weight_max").val() == ''
+            ) {
+                alert('必填项不能为空！')
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: '/qc_edit/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: $("#qc_edit_form").serialize(),
+                    success: function (ret) {
+                        if (ret.code === 0) {
+                            alert(ret.msg);
+                            {#$("#vessel-form")[0].reset();#}
+                            window.location.href = '/qc_equipment/'
+                        } else {
+                            alert(ret.msg)
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../static/jquery/jquery-3.4.1.min.js"></script>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+  <style>
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background-color: #FFFFFF;
+        font-family: "Microsoft YaHei", sans-serif;
+        }
+    .pageSidebar{
+        width: 240px;
+        height:100%;
+        padding-bottom: 30px;
+        overflow: auto;
+        background-color: #e3e3e3;
+        }
+     .splitter {
+        width:2px;
+        height: 100%;
+        bottom: 0;
+        left: 240px;
+        position: absolute;
+        overflow: hidden;
+        background-color: #e3e3e3;
+        }
+      .pageContent{
+        height: 100%;
+         min-width: 768px;
+          left: 245px;
+          top: 0;
+          right: 0;
+          z-index:3;
+          padding-bottom: 30px;
+          position: absolute;
+          overflow:scroll;
+        }
+    .pageContainer{
+        bottom: 0;
+        left:0;
+        right: 0;
+        top: 53px;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        }
+    .footer {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 0;
+        left: 242px;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: 10;
+        background-color:#DFDFDF;
+        }
+
+    .navbar-collapse{
+         padding-left: 5px;
+        padding-right: 5px;
+        }
+    .nav>li{
+        text-align: center;
+        }
+     .nav>li>a{
+        color:#444;
+        margin: 0 5px;
+        }
+    .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+        background-color: #222222;
+         }
+    .dropdown-menu{
+         min-width: 200px;
+        margin-left: 10px;
+        background-color: #E3E3E3;
+        }
+    .dropdown-menu>li>a{
+        padding: 10px 15px;
+        }
+    .module {
+        margin-bottom: 30px;
+    }
+      {% block style %}
+      {% endblock %}
+  </style>
+</head>
+<body>
+<!--顶部导航栏-->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" title="logoTitle" href="#">M I S</a>
+       </div>
+       <div class="collapse navbar-collapse">
+           <ul class="nav navbar-nav navbar-right">
+               <li role="presentation">
+                   <a href="#">当前用户：<span class="badge">{{request.session.username}}</span></a>
+               </li>
+               <li>
+                   <a href="/logout/">
+                         <span class="glyphicon glyphicon-lock"></span>退出登录
+                   </a>
+                </li>
+            </ul>
+       </div>
+    </div>
+</nav>
+<!-- 中间主体内容部分 -->
+<div class="pageContainer">
+     <!-- 左侧导航栏 -->
+     <div class="pageSidebar">
+         <ul class="nav nav-stacked nav-pills">
+             <li role="presentation" class="module">
+                 <button type="button" class="btn btn-lg btn-block dropdown-toggle" id="dropdownMenu1"
+                    data-toggle="dropdown">基 本 信 息 <span class="caret"></span></button>
+                 <ul class="dropdown-menu">
+                     <li role="presentation">
+                         <a href="/informationinput/" target="mainFrame">信息录入</a>
+                     </li>
+                     <li role="presentation">
+                         <a href="/voy/" target="mainFrame">航次录入</a>
+                     </li>
+                     <li role="presentation">
+                         <a href="/vesselinfo_maintain/" target="mainFrame">船舶信息维护</a>
+                     </li>
+                     <li role="presentation">
+                         <a href="/voy_maintain/" target="mainFrame">进出口航次维护</a>
+                     </li>
+                     <li role="presentation">
+                         <a href="/container_maintain/" target="mainFrame">进出口箱信息维护</a>
+                     </li>
+                     </ul>
+             </li>
+             <li role="presentation" class="module">
+                 <button type="button" class="btn btn-lg btn-block dropdown-toggle" id="dropdownMenu1"
+                    data-toggle="dropdown">计 划 管 理 <span class="caret"></span></button>
+                 <ul class="dropdown-menu ">
+                     <li role="presentation" class="dropdown-header">船舶计划</li>
+                     <li  role="presentation">
+                         <a href="/vessel_plan/" target="mainFrame">船舶计划查询</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li role="presentation" class="dropdown-header">卸船计划</li>
+{#                     <li>#}
+{#                         <a href="/unloading_planning_page/" target="mainFrame">卸船计划制定</a>#}
+{#                     </li>#}
+                     <li>
+                         <a href="/unloading_plan_manage/" target="mainFrame">卸船计划管理</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li role="presentation" class="dropdown-header">装船计划</li>
+                     <li>
+                         <a href="#" target="mainFrame">装船计划制定</a>
+                     </li>
+                     <li>
+                         <a href="#" target="mainFrame">装船计划查询</a>
+                     </li>
+                 </ul>
+             </li>
+             <li role="presentation" class="module">
+                <button type="button" class="btn btn-lg btn-block dropdown-toggle" id="dropdownMenu1"
+                    data-toggle="dropdown">作 业 管 理 <span class="caret"></span></button>
+                 <ul class="dropdown-menu ">
+                     <li>
+                         <a href="/vessel_job/" target="mainFrame">船舶作业管理</a>
+                     </li>
+                     <li>
+                         <a href="/loading_plan_manage/" target="mainFrame">装船作业管理</a>
+                     </li>
+                     <li>
+                         <a href="/unloading_job/" target="mainFrame">卸船作业管理</a>
+                     </li>
+                 </ul>
+             </li>
+             <li role="presentation" class="module">
+                <button type="button" class="btn btn-lg btn-block dropdown-toggle" id="dropdownMenu1"
+                    data-toggle="dropdown">设 备 管 理 <span class="caret"></span></button>
+                 <ul class="dropdown-menu ">
+{#                     <li>#}
+{#                         <a href="/qc_info/" target="mainFrame">岸桥基本信息</a>#}
+{#                     </li>#}
+                     <li>
+                         <a href="/qc_equipment/" target="mainFrame">岸桥设备管理</a>
+                     </li>
+                     <li>
+                         <a href="/agv_equipment/" target="mainFrame">AGV设备管理</a>
+                     </li>
+                     <li>
+                         <a href="/qc_add/" target="mainFrame">岸桥设备添加</a>
+                     </li>
+                     <li>
+                         <a href="/agv_add/" target="mainFrame">AGV设备添加</a>
+                     </li>
+                 </ul>
+             </li>
+
+         </ul>
+     </div>
+     <!-- 左侧导航和正文内容的分隔线 -->
+ <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                    </h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    在这里添加一些文本
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+{# 模态对话框#}
+{# 通用提升 #}
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel1">
+                        提示
+                    </h4>
+                </div>
+                <div class="modal-body" id="modal-body1">
+                    在这里添加一些文本
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+{#  #}
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel2">
+                        提示
+                    </h4>
+                </div>
+                <div class="modal-body" id="modal-body2">
+                    在这里添加一些文本
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+     <div class="splitter"></div>
+     <!-- 正文内容部分 -->
+     <div class="pageContent">
+         {% block content %}
+
+         {% endblock %}
+     </div>
+ </div>
+
+<script type="text/javascript">
+    $(".nav li").click(function() {
+        $(".active").removeClass('active');
+        $(this).addClass("active");
+    });
+
+    function myAlert(data,bay) {
+        $('#modal-body').html(data);
+        $('#myModalLabel').text(bay);
+        $('#myModal').modal({
+            relatedTarget: this
+        });
+    }
+
+    function myAlert1(data) {
+        $('#modal-body1').text(data);
+        $('#myModal1').modal({
+            relatedTarget: this
+        });
+    }
+</script>
+
+</body>
+</html>

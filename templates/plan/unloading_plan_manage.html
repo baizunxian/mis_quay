@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}卸船计划{% endblock %}
+{% block style %}
+       .panel {
+     margin:20px
+    }
+{% endblock %}
+{% block content %}
+ <div class="panel panel-default">
+	<div class="panel-heading">
+            <h4>卸船计划管理</h4>
+    </div>
+	<div class="panel-body">
+        <div class="container-fluid" id="unloading-plan-search">
+            <div class="row">
+             <div class="col-md-6 col-md-offset-2">
+                 <form action="" method="get" class="pull-left">
+                    <ol class="breadcrumb">
+                        英文船名：<input name="en_name" id="en_name">
+                        进口航次：<input name="voy_im" id="voy_im">
+
+                         <button >查询</button>
+                    </ol>
+                </form>
+            </div>
+                <div class="col-md-1">
+{#                    <form action="delete" method="get" class="pull-left">#}
+                        <ol class="breadcrumb">
+                            <button class="btn btn-xs btn-danger" id="delete_plan">批量删除</button>
+                        </ol>
+{#                    </form>#}
+                </div>
+        </div>
+    </div>
+     <div class=container-fluid>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <table class="table table-striped table- hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="all">全选</th>
+                                <th>卸箱计划编号</th>
+                                <th>英文船名</th>
+                                <th>进口航次</th>
+                                <th>岸桥</th>
+                                <th>具体箱信息</th>
+                                <th>计划完成情况</th>
+                            </tr>
+                        </thead>
+                        <form action="" id="plan_form">
+                            <tbody id="unloading_plan">
+                            {% for plan in plan_un_info %}
+                                <tr>
+                                    <td><input type="checkbox" name="plan_ids" value="{{ plan.plan_id }}" onclick="userCheck(this)"></td>
+                                    <td>{{ plan.plan_id }}</td>
+                                    <td>{{ plan.vessel.cn_name }}</td>
+                                    <td>{{ plan.voy.voy_im }}</td>
+                                    <td>{{ plan.qc.qc_id }}</td>
+                                    <td>{{ plan.space }}</td>
+                                    <td>{{ plan.get_state_display }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function () {
+    //全选,设置chheckbox name='all' tbody id=unloading_plan
+    $("input[name=all]").click(function () {
+        if (this.checked) {
+            $("#unloading_plan :checkbox").prop("checked", true);
+        } else {
+            $("#unloading_plan :checkbox").prop("checked", false);
+        }
+    });
+});
+</script>
+<script>
+    $('#delete_plan').click(function () {
+        console.log($("#plan_form").serialize())
+        $.ajax({
+         url: '/delete_plan/',
+         type: 'post',
+         headers: {"X-CSRFToken": "{{ csrf_token }}"},
+         data: $("#plan_form").serialize(),
+        success: function(res){
+             if (res.code === 0){
+                 myAlert1(res.msg);
+                window.location.href='/unloading_plan_manage/'
+             }
+             else {
+                 myAlert1(res.msg)
+             }
+        }
+     });
+    })
+    </script>
+{% endblock %}

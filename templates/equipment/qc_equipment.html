@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}岸桥设备管理{% endblock %}
+{% block style %}
+    .panel {
+    margin:20px
+    }
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                岸桥设备管理
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 ">
+                        <table class="table table-striped table- hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>岸桥编号</th>
+                                <th>海侧吊具运行状态</th>
+                                <th>陆侧吊具运行状态</th>
+                                <th>岸桥设备情况</th>
+                                <th>中转平台空位</th>
+                                <th>吊具承重量</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for qc in qc_list %}
+                                <tr>
+                                    <td>{{ qc.qc_id }}</td>
+                                    <td>{{ qc.get_sea_state_display }}</td>
+                                    <td>{{ qc.get_land_state_display }}</td>
+                                    <td>{{ qc.get_situation_display }}</td>
+                                    <td>{{ qc.middle_space }}</td>
+                                    <td>{{ qc.weight_max }}</td>
+                                    <td class="center-block">
+                                        <a href="/qc_edit?qc_id={{ qc.qc_id }}">
+                                            <button class="btn btn-danger btn-sm ">编辑</button>
+                                        </a>
+                                        <button class="btn btn-primary btn-sm "
+                                                onclick="qc_delete(this, {{ qc.qc_id }})">删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function qc_delete(tr, qc_id) {
+            var msg = confirm('确定删除么?');
+            if (msg == true) {
+                $.ajax({
+                    type: 'post',
+                    url: '/qc_delete/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: {
+                        qc_id: qc_id
+                    },
+                    success: function (ret) {
+                        if (ret.code == 0) {
+                            $(tr).closest('tr').remove();
+                        }
+                    }
+                });
+            } else {
+                return false
+            }
+        }
+</script>
+{% endblock %}

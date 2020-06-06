@@ -1,0 +1,511 @@
+{% extends 'base.html' %}
+
+{% block title %}
+   岸桥计划
+{% endblock %}
+{% block style %}
+    div.row1{
+        height:17px;
+    }
+    div.deck{
+    width:900px;
+    height:12px;
+    margin-top:2.5px;
+    margin-bottom:2.5px;
+    background-color:#FFE4B5;
+    }
+    div.class1{
+        width: 35px;
+        height: 17px;
+        float:left;
+        margin-left:0px;
+        border-style: solid ;
+        border-width:thin
+        }
+    div.class2{
+        width: 35px;
+        height: 17px;
+        float:left;
+        margin-left:5px;
+        border-style: solid ;
+        border-width:thin
+        }
+    div.class3{
+        width: 35px;
+        height: 17px;
+        float:left;
+        margin-left:80px;
+        border-style: solid ;
+        border-width:thin;
+        }
+    div.class4{
+        width:35px;
+        height:17px;
+        float:left;
+        margin-left:0px;
+    }
+    div.class5{
+        width:35px;
+        height:17px;
+        float:left;
+        margin-left:155px;
+        border-style: solid ;
+        border-width:thin;
+    }
+    div.class6{
+        width:35px;
+        height:17px;
+        float:left;
+        margin-left:40px;
+        border-style: solid ;
+        border-width:thin;
+    }
+    div.class7{
+        width:35px;
+        height:17px;
+        float:left;
+        margin-left:40px;
+        border-style: solid ;
+        border-width:thin;
+    }
+    div.class8{
+        width: 35px;
+        height: 17px;
+        float:left;
+        margin-left:0px;
+        text-align:center;
+        }
+    div.class9{
+        width: 35px;
+        height: 17px;
+        float:left;
+        margin-left:5px;
+        text-align:center;
+        }
+        div.class10{
+        width: 35px;
+        height: 17px;
+        float:left;
+        margin-left:80px;
+        text-align:center;
+        }
+    div.row3{
+        height:40px;
+        margin-top:30px;
+    }
+    div.row4{
+        height:40px;
+        margin-top:20px;
+    }
+
+{% endblock %}
+{% block content %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+                <h4>船名:{{ v_info.cn_name }}/航次：{{ voy_info.voy_im }}</h4>
+        </div>
+        <div class="panel-body">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="row1">
+                        <div class="class1" id="88" title="row88bay41"></div>
+                        <div class="class2" id="88" title="row88bay39"></div>
+                        <div class="class1" id="88" title="row88bay37"></div>
+                        <div class="class2" id="88" title="row88bay35"></div>
+                        <div class="class1" id="88" title="row88bay33"></div>
+                        <div class="class2" id="88" title="row88bay31"></div>
+                        <div class="class1" id="88" title="row88bay29"></div>
+                        <div class="class2" id="88" title="row88bay27"></div>
+                        <div class="class1" id="88" title="row88bay25"></div>
+                        <div class="class3" id="88" title="row88bay23"></div>
+                        <div class="class1" id="88" title="row88bay21"></div>
+                        <div class="class2" id="88" title="row88bay19"></div>
+                        <div class="class1" id="88" title="row88bay17"></div>
+                        <div class="class2" id="88" title="row88bay15"></div>
+                        <div class="class1" id="88" title="row88bay13"></div>
+                        <div class="class2" id="88" title="row88bay11"></div>
+                        <div class="class1" id="88" title="row88bay09"></div>
+                        <div class="class2" id="88" title="row88bay07"></div>
+                        <div class="class1" id="88" title="row88bay05"></div>
+                    </div>
+                    <div class="row1">
+                        <div class="class1" id="86" title="row86bay41"></div>
+                        <div class="class2" id="86" title="row86bay39"></div>
+                        <div class="class1" id="86" title="row86bay37"></div>
+                        <div class="class2" id="86" title="row86bay35"></div>
+                        <div class="class1" id="86" title="row86bay33"></div>
+                        <div class="class2" id="86" title="row86bay31"></div>
+                        <div class="class1" id="86" title="row86bay29"></div>
+                        <div class="class2" id="86" title="row86bay27"></div>
+                        <div class="class1" id="86" title="row86bay25"></div>
+                        <div class="class3" id="86" title="row86bay23"></div>
+                        <div class="class1" id="86" title="row86bay21"></div>
+                        <div class="class2" id="86" title="row86bay19"></div>
+                        <div class="class1" id="86" title="row86bay17"></div>
+                        <div class="class2" id="86" title="row86bay15"></div>
+                        <div class="class1" id="86" title="row86bay13"></div>
+                        <div class="class2" id="86" title="row86bay11"></div>
+                        <div class="class1" id="86" title="row86bay09"></div>
+                        <div class="class2" id="86" title="row86bay07"></div>
+                        <div class="class1" id="86" title="row86bay05"></div>
+                    </div>
+                    <div class="row1">
+                        <div class="class1" id="84" title="row84bay41"></div>
+                        <div class="class2" id="84" title="row84bay39"></div>
+                        <div class="class1" id="84" title="row84bay37"></div>
+                        <div class="class2" id="84" title="row8bay35"></div>
+                        <div class="class1" id="84" title="row846bay33"></div>
+                        <div class="class2" id="84" title="row84bay31"></div>
+                        <div class="class1" id="84" title="row84bay29"></div>
+                        <div class="class2" id="84" title="row84bay27"></div>
+                        <div class="class1" id="84" title="row84bay25"></div>
+                        <div class="class3" id="84" title="row84bay23"></div>
+                        <div class="class1" id="84" title="row84bay21"></div>
+                        <div class="class2" id="84" title="row84bay19"></div>
+                        <div class="class1" id="84" title="row84bay17"></div>
+                        <div class="class2" id="84" title="row84bay15"></div>
+                        <div class="class1" id="84" title="row84bay13"></div>
+                        <div class="class2" id="84" title="row84bay11"></div>
+                        <div class="class1" id="84" title="row84bay09"></div>
+                        <div class="class2" id="84" title="row84bay07"></div>
+                        <div class="class1" id="84" title="row84bay05"></div>
+                    </div>
+                    <div class="row1">
+                        <div class="class1" id="82" title="row82bay41"></div>
+                        <div class="class2" id="82" title="row82bay39"></div>
+                        <div class="class1" id="82" title="row82bay37"></div>
+                        <div class="class2" id="82" title="row82bay35"></div>
+                        <div class="class1" id="82" title="row82bay33"></div>
+                        <div class="class2" id="82" title="row82bay31"></div>
+                        <div class="class1" id="82" title="row82bay29"></div>
+                        <div class="class2" id="82" title="row82bay27"></div>
+                        <div class="class1" id="82" title="row82bay25"></div>
+                        <div class="class3" id="82" title="row82bay23"></div>
+                        <div class="class1" id="82" title="row82bay21"></div>
+                        <div class="class2" id="82" title="row82bay19"></div>
+                        <div class="class1" id="82" title="row82bay17"></div>
+                        <div class="class2" id="82" title="row82bay15"></div>
+                        <div class="class1" id="82" title="row82bay13"></div>
+                        <div class="class2" id="82" title="row82bay11"></div>
+                        <div class="class1" id="82" title="row82bay09"></div>
+                        <div class="class2" id="82" title="row82bay07"></div>
+                        <div class="class1" id="82" title="row82bay05"></div>
+                        <div class="class2" id="82" title="row12bay03"></div>
+                        <div class="class1" id="82" title="row12bay01"></div>
+                    </div>
+                     <div class="row1">
+                        <div class="deck" title="甲板"></div>
+                    </div>
+                    <div class="row1">
+                        <div class="class4" ></div>
+                        <div class="class2" id="12" title="row12bay39"></div>
+                        <div class="class1" id="12" title="row12bay37"></div>
+                        <div class="class2" id="12" title="row12bay35"></div>
+                        <div class="class1" id="12" title="row12bay33"></div>
+                        <div class="class2" id="12" title="row12bay31"></div>
+                        <div class="class1" id="12" title="row12bay29"></div>
+                        <div class="class2" id="12" title="row12bay27"></div>
+                        <div class="class1" id="12" title="row12bay25"></div>
+                        <div class="class3" id="12" title="row12bay23"></div>
+                        <div class="class1" id="12" title="row12bay21"></div>
+                        <div class="class2" id="12" title="row12bay19"></div>
+                        <div class="class1" id="12" title="row12bay17"></div>
+                        <div class="class2" id="12" title="row12bay15"></div>
+                        <div class="class1" id="12" title="row12bay13"></div>
+                        <div class="class2" id="12" title="row12bay11"></div>
+                        <div class="class1" id="12" title="row12bay09"></div>
+                        <div class="class2" id="12" title="row12bay07"></div>
+                        <div class="class1" id="12" title="row12bay05"></div>
+                        <div class="class2" id="12" title="row12bay03"></div>
+                        <div class="class1" id="12" title="row12bay01"></div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="class4" ></div>
+                        <div class="class2" id="10" title="row10bay39"></div>
+                        <div class="class1" id="10" title="row10bay37"></div>
+                        <div class="class2" id="10" title="row10bay35"></div>
+                        <div class="class1" id="10" title="row10bay33"></div>
+                        <div class="class2" id="10" title="row10bay31"></div>
+                        <div class="class1" id="10" title="row10bay29"></div>
+                        <div class="class2" id="10" title="row10bay27"></div>
+                        <div class="class1" id="10" title="row10bay25"></div>
+                        <div class="class3" id="10" title="row10bay23"></div>
+                        <div class="class1" id="10" title="row10bay21"></div>
+                        <div class="class2" id="10" title="row10bay19"></div>
+                        <div class="class1" id="10" title="row10bay17"></div>
+                        <div class="class2" id="10" title="row10bay15"></div>
+                        <div class="class1" id="10" title="row10bay13"></div>
+                        <div class="class2" id="10" title="row10bay11"></div>
+                        <div class="class1" id="10" title="row10bay09"></div>
+                        <div class="class2" id="10" title="row10bay07"></div>
+                        <div class="class1" id="10" title="row10bay05"></div>
+                        <div class="class2" id="10" title="row10bay03"></div>
+                        <div class="class1" id="10" title="row10bay01"></div>
+                    </div>
+                    <div class="row1">
+                        <div class="class4"></div>
+                        <div class="class2" id="08" title="row08bay39"></div>
+                        <div class="class1" id="08" title="row08bay37"></div>
+                        <div class="class3" id="08" title="row08bay31"></div>
+                        <div class="class1" id="08" title="row08bay29"></div>
+                        <div class="class2" id="08" title="row08bay27"></div>
+                        <div class="class1" id="08" title="row08bay25"></div>
+                        <div class="class3" id="08" title="row08bay23"></div>
+                        <div class="class1" id="08" title="row08bay21"></div>
+                        <div class="class2" id="08" title="row08bay19"></div>
+                        <div class="class1" id="08" title="row08bay17"></div>
+                        <div class="class2" id="08" title="row08bay15"></div>
+                        <div class="class1" id="08" title="row08bay13"></div>
+                        <div class="class2" id="08" title="row08bay11"></div>
+                        <div class="class1" id="08" title="row08bay09"></div>
+                        <div class="class2" id="08" title="row08bay07"></div>
+                        <div class="class1" id="08" title="row08bay05"></div>
+                        <div class="class2" id="08" title="row08bay03"></div>
+                        <div class="class1" id="08" title="row08bay01"></div>
+                    </div>
+                    <div class="row1">
+                        <div class="class1" id="06" title="row06bay41"></div>
+                        <div class="class2" id="06" title="row06bay39"></div>
+                        <div class="class1" id="06" title="row06bay37"></div>
+                        <div class="class3" id="06" title="row06bay31"></div>
+                        <div class="class1" id="06" title="row06bay29"></div>
+                        <div class="class2" id="06" title="row06bay27"></div>
+                        <div class="class1" id="06" title="row06bay25"></div>
+                        <div class="class3" id="06" title="row06bay23"></div>
+                        <div class="class1" id="06" title="row06bay21"></div>
+                        <div class="class2" id="06" title="row06bay19"></div>
+                        <div class="class1" id="06" title="row06bay17"></div>
+                        <div class="class2" id="06" title="row06bay15"></div>
+                        <div class="class1" id="06" title="row06bay13"></div>
+                        <div class="class2" id="06" title="row06bay11"></div>
+                        <div class="class1" id="06" title="row06bay09"></div>
+                        <div class="class2" id="06" title="row06bay07"></div>
+                        <div class="class1" id="06" title="row06bay05"></div>
+                        <div class="class2" id="06" title="row06bay03"></div>
+                        <div class="class1" id="06" title="row06bay01"></div>
+                    </div>
+                     <div class="row1">
+                        <div class="class1" id="04" title="row04bay41"></div>
+                        <div class="class2" id="04" title="row04bay39"></div>
+                        <div class="class1" id="04" title="row04bay37"></div>
+                        <div class="class5" id="04" title="row04bay27"></div>
+                        <div class="class1" id="04" title="row04bay25"></div>
+                        <div class="class3" id="04" title="row04bay23"></div>
+                        <div class="class1" id="04" title="row04bay21"></div>
+                        <div class="class2" id="04" title="row04bay19"></div>
+                        <div class="class1" id="04" title="row04bay17"></div>
+                        <div class="class2" id="04" title="row04bay15"></div>
+                        <div class="class1" id="04" title="row04bay13"></div>
+                        <div class="class2" id="04" title="row04bay11"></div>
+                        <div class="class1" id="04" title="row04bay09"></div>
+                        <div class="class2" id="04" title="row04bay07"></div>
+                        <div class="class6" id="04" title="row04bay03"></div>
+                    </div>
+                     <div class="row1">
+                        <div class="class1" id="02" title="row02bay41"></div>
+                        <div class="class2" id="02" title="row02bay39"></div>
+                        <div class="class1" id="02" title="row02bay37"></div>
+                        <div class="class5" id="02" title="row02bay27"></div>
+                        <div class="class1" id="02" title="row02bay25"></div>
+                        <div class="class3" id="02" title="row02bay23"></div>
+                        <div class="class1" id="02" title="row02bay21"></div>
+                        <div class="class2" id="02" title="row02bay19"></div>
+                        <div class="class1" id="02" title="row02bay17"></div>
+                        <div class="class2" id="02" title="row02bay15"></div>
+                        <div class="class1" id="02" title="row02bay13"></div>
+                        <div class="class2" id="02" title="row02bay11"></div>
+                        <div class="class1" id="02" title="row02bay09"></div>
+                    </div>
+                     <div class="row1">
+                        <div class="class9">41</div>
+                        <div class="class9">39</div>
+                        <div class="class8">37</div>
+                        <div class="class9">35</div>
+                        <div class="class8">33</div>
+                        <div class="class9">31</div>
+                        <div class="class8">29</div>
+                        <div class="class9">27</div>
+                        <div class="class8">25</div>
+                        <div class="class10">23</div>
+                         <div class="class8">21</div>
+                        <div class="class9">19</div>
+                         <div class="class8">17</div>
+                        <div class="class9">15</div>
+                         <div class="class8">13</div>
+                        <div class="class9">11</div>
+                         <div class="class8">09</div>
+                        <div class="class9">07</div>
+                         <div class="class8">05</div>
+                        <div class="class9">03</div>
+                         <div class="class8">01</div>
+
+                    </div>
+                    <div class="row4">
+                        <!-- 按钮触发模态框 -->
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" name="11" onclick="query(11)">11</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:35px;"  name="10"  onclick="query(10)">10</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal"  style="margin-left:50px;" name="9"  onclick="query(9)">9</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:50px;"  name="8"  onclick="query(8)">8</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:50px;"  name="7" onclick="query(7)">7</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:130px;"  name="6" onclick="query(6)">6</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:50px;"  name="5" onclick="query(5)">5</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:50px;"  name="4" onclick="query(4)">4</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:50px;"  name="3" onclick="query(3)">3</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="margin-left:50px;"  name="2" onclick="query(2)">2</button>
+                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="" style="margin-left:50px;"  name="1" onclick="query(1)">1</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+                <h4>岸桥计划</h4>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid"><div class="col-md-12">
+            <form role="form" id="qc-form">
+
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-2">
+                        <label for="qc_id_1">岸桥编号1</label>
+                        <select class="form-control" id="qc1" name="qc1">
+                            <option value="">请选择</option>
+                            {% for qc in qc_list %}
+                                <option value="{{ qc.qc_id }}">{{ qc.qc_id }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1">
+                         <label for="qc-start-1">岸桥1起始倍位</label>
+                        <select class="form-control" id="qc1_start" name="qc1_start">
+                            <option value="">请选择</option>
+                            {% for bay in bay_list %}
+                                <option value="{{ bay.id }}">{{ bay.id }}({{ bay.bay }})</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1">
+                         <label for="qc-end-1">岸桥1结束倍位</label>
+                            <select class="form-control" id="qc1_end" name="qc1_end">
+                                <option value="">请选择</option>
+                                {% for bay in bay_list %}
+                                    <option value="{{ bay.id }}">{{ bay.id }}({{ bay.bay }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                     </div>
+                        <div class="row">
+                        <div class="col-md-2 col-md-offset-2">
+                        <label for="qc_id_2">岸桥编号2</label>
+                        <select class="form-control" id="qc2" name="qc2">
+                            <option value="">请选择</option>
+                            {% for qc in qc_list %}
+                                <option value="{{ qc.qc_id }}">{{ qc.qc_id }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1">
+                         <label for="qc-start-2">岸桥2起始倍位</label>
+                            <select class="form-control" id="qc2_start" name="qc2_start">
+                                <option value="">请选择</option>
+                                {% for bay in bay_list %}
+                                    <option value="{{ bay.id }}">{{ bay.id }}({{ bay.bay }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1">
+                         <label for="qc-end-2">岸桥2结束倍位</label>
+                            <select class="form-control" id="qc2_end" name="qc2_end">
+                                <option value="">请选择</option>
+                                {% for bay in bay_list %}
+                                    <option value="{{ bay.id }}">{{ bay.id }}({{ bay.bay }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                     </div>
+
+                    </form>
+                </div>
+                <div class="row"></div>
+                <div class="row3">
+                         <div class="col-md-12">
+                        <button class="btn btn-primary center-block" form="container-export-form" onclick="distribution()" formmethod="post">确认分配</button>
+                         </div>
+                    </div>
+            </div>
+
+            </div>
+       </div>
+    <input type="hidden" value="{{ voy }}" name="voy" id="voy">
+    <input type="hidden" value="{{ v_id }}" name="v_id" id="v_id">
+<script>
+ function query(bay) {
+     $.ajax({
+         url: '/get_by_bay_id/',
+         type: 'post',
+         headers: {"X-CSRFToken": "{{ csrf_token }}"},
+         data: {
+             voy: $('#voy').val(),
+             v_id: $('#v_id').val(),
+             bay: bay
+         },
+         success: function (req) {
+             var lan = req.container_list.length;
+             var container_list = req.container_list;
+             var im = '<h4>进口箱:</h4>';
+             var ex = '<h4>出口箱:</h4>';
+
+             for (var i=0; i<lan; i++){
+                 console.log(container_list['type']);
+                 if(container_list[i]['type'] === 0){
+                     im +='<span>'+container_list[i]['space']+'</span>\n'
+                 }
+                 else {
+                    ex +='<span>'+container_list[i]['space']+'</span>\n'
+                 }
+             }
+            var bay1 = '大贝:'+ bay;
+            var data = im+ex;
+            myAlert(data, bay1)
+         }
+     });
+ }
+ 
+ function distribution() {
+     var qc1 = $("#qc1").val(),
+         qc2 = $("#qc2").val(),
+         qc1_start = $("#qc1_start").val(),
+         qc1_end = $("#qc1_end").val(),
+         qc2_start = $("#qc2_start").val(),
+         qc2_end = $("#qc2_end").val(),
+         voy = $('#voy').val(),
+         v_id = $('#v_id').val();
+     $.ajax({
+         url: '/distribution_qc/',
+         type: 'post',
+         headers: {"X-CSRFToken": "{{ csrf_token }}"},
+         data: {
+             qc1: qc1,
+             qc2: qc2,
+             qc1_start: qc1_start,
+             qc1_end: qc1_end,
+             qc2_start: qc2_start,
+             qc2_end: qc2_end,
+             voy: voy,
+             v_id: v_id
+         },
+        success: function(res){
+             myAlert1(res.msg)
+        }
+
+     });
+
+ }
+
+</script>
+
+{% endblock %}

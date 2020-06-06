@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}AGV设备管理{% endblock %}
+{% block style %}
+    .panel {
+    margin:20px
+    }
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                AGV设备管理
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 ">
+                        <table class="table table-striped table- hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>AGV编号</th>
+                                <th>设备情况</th>
+                                <th>运行状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for agv in agv_list %}
+                                <tr>
+                                    <td>{{ agv.agv_id }}</td>
+                                    <td>{{ agv.get_situation_display }}</td>
+                                    <td>{{ agv.get_state_display }}</td>
+                                    <td class="center-block">
+                                        <a href="/agv_edit?agv_id={{ agv.agv_id }}">
+                                            <button class="btn btn-danger btn-sm ">编辑</button>
+                                        </a>
+                                        <button class="btn btn-warning btn-sm "
+                                                onclick="agv_delete(this, {{ agv.agv_id }})">删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function agv_delete(tr, agv_id) {
+            var msg = confirm('确定删除么?');
+            if (msg == true) {
+                $.ajax({
+                    type: 'post',
+                    url: '/agv_delete/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: {
+                        agv_id: agv_id
+                    },
+                    success: function (ret) {
+                        if (ret.code == 0) {
+                            $(tr).closest('tr').remove();
+                        }
+                    }
+                });
+            } else {
+                return false
+            }
+        }
+</script>
+{% endblock %}

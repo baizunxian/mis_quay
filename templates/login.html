@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../static/jquery/jquery-3.4.1.min.js"></script>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <!-- Custom styles for this template -->
+    <!--link href="../signin.css" rel="stylesheet"-->
+  <style>
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background-color: #eee;
+        }
+
+      .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+        }
+      .form-signin .form-signin-heading,
+{#      .form-signin .checkbox {#}
+{#         margin-bottom: 10px;#}
+{#        }#}
+{#      .form-signin .checkbox {#}
+{#        font-weight: normal;#}
+{#        }#}
+      .form-signin .form-control {
+        position: relative;
+        height: auto;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+{#        .form-signin input[type="email"] {#}
+{#            margin-bottom: -1px;#}
+{#            border-bottom-right-radius: 0;#}
+{#            border-bottom-left-radius: 0;#}
+{#        }#}
+        .form-signin input[type="password"] {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+  </style>
+  </head>
+  <body>
+ 
+    <div class="container">
+ 
+      <form class="form-signin" action=# method="post" id="login_form">
+        <h1 class="form-signin-heading text-center">用户登录</h1>
+        <label for="inputUsername" class="sr-only">username</label>
+        <input type="text" id="inputUserid" name="userid" class="form-control" placeholder="userid" required autofocus>
+        <label for="inputPassword" class="sr-only">password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="password" required>
+ 
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="login">登录</button>
+         {{wronglyInput}}<br>
+      </form>
+ 
+    </div> <!-- /container -->
+ 
+  </body>
+<script>
+    $("#login").click(function () {
+        // 前端判断，必填项 账号或密码不能为空
+        if ($("#inputUserid").val() ==""||$("#inputPassword").val()==""){
+            alert("用户名或密码不能为空！")
+        }
+        else {
+        $.ajax({
+            type: "post",
+            url: '/login/',
+            headers:{
+                "X-CSRFToken":"{{ csrf_token }}"
+            },
+            data: {
+                userid:$("#inputUserid").val(),
+                password:$("#inputPassword").val()
+            },
+            success: function (ret) {
+                if (ret.code === 0){
+                    window.location.href = '/index/'
+                }
+                else {
+                    alert(ret.msg)
+                }
+            }
+        })
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+
+{% block title %}信息录入{% endblock %}
+{% block style %}
+    .panel {
+    margin:20px
+    }
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                船舶信息输入
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class=container-fluid>
+                <form role="form" id="vessel-form">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-3">
+                            <div class="form-group">
+                                <label for="en_name">英文船名</label>
+                                <input type="text" class="form-control" id="en_name" name="en_name"
+                                       placeholder="请输入英文船名" maxlength="18">
+                            </div>
+                        </div>
+                        <div class=" col-md-3">
+                            <div class="form-group">
+                                <label for="cn_name">中文船名</label>
+                                <input type="text" class="form-control" id="cn_name" name="cn_name"
+                                       placeholder="请输入中文船名" maxlength="18">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary center-block" form="vessel-form" type="button" formmethod="post"
+                                id="vessel_btn">提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                进出口箱预录
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class=container-fluid>
+                <form role="form" id="container-import-form">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-3">
+                            <label for="vessel-form">船</label>
+                            <select class="form-control" id="vessel" name="vessel">
+                                <option value="">请选择</option>
+                                {% for vessel in vessel_list %}
+                                    <option value="{{ vessel.id }}">{{ vessel.en_name }}({{ vessel.cn_name }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="voy">航次</label>
+                            <select class="form-control" id="voy" name="voy">
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="voy_im">选择进出口</label>
+                            <select class="form-control" id="voy_type" name="voy_type">
+                                <option value="0">进口</option>
+                                <option value="1">出口</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-3">
+                            <label for="space">选择大贝</label>
+                            <select class="form-control" id="bay" name="bay">
+                                <option value="">请选择</option>
+                                {% for bay in bay_list %}
+                                    <option value="{{ bay.id }}">{{ bay.id }}({{ bay.bay }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="space">计划进口箱位</label>
+                            <input type="text" class="form-control" id="space" name="space" placeholder="请输入箱位"
+                                   maxlength="6" min="6" oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="iso_no">箱号</label>
+                            <input type="text" class="form-control" id="iso_no" name="iso_no" placeholder="请输入iso号"
+                                   maxlength="11" min="11" oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-3">
+                            <label for="size">尺寸</label>
+                            <select class="form-control" name="size">
+                                <option value="1" selected>20ft</option>
+                                <option value="2">40ft</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="weight">重量(单位:kg)</label>
+                            <input type="text" class="form-control" id="weight" name="weight" placeholder="请输入箱重">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="type">是否特殊箱</label>
+                                <select class="form-control" id="type_yn" name="type_yn">
+                                    <option value="True">是</option>
+                                    <option value="False" selected>否</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-success center-block" form="container-import-form" type="button"
+                                formmethod="post" id="container_btn">提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#    <div class="panel panel-default">#}
+    {#        <div class="panel-heading">#}
+    {#            <h3 class="panel-title">#}
+    {#                出口箱预录#}
+    {#            </h3>#}
+    {#        </div>#}
+    {#        <div class="panel-body">#}
+    {#            <div class=container-fluid>#}
+    {#                <form role="form" id="container-export-form">#}
+    {#                    <div class="row">#}
+    {#                        <div class="col-md-offset-2 col-md-3">#}
+    {#                            <label for="vessel-form">船</label>#}
+    {#                            <select class="form-control" id="vessel_select2" name="vessel_select">#}
+    {#                                <option value="">请选择</option>#}
+    {#                                {% for vessel in vessel_list %}#}
+    {#                                    <option value="{{ vessel.id }}">{{ vessel.en_name }}({{ vessel.cn_name }})</option>#}
+    {#                                {% endfor %}#}
+    {#                            </select>#}
+    {#                        </div>#}
+    {#                        <div class="col-md-3">#}
+    {#                            <label for="voy_ex">出口航次</label>#}
+    {#                            <select class="form-control" id="voy_ex_select" name="voy">#}
+    {#                            </select>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                    <div class="row">#}
+    {#                        <div class="col-md-offset-2 col-md-3">#}
+    {#                            <label for="space">选择大贝</label>#}
+    {#                            <select class="form-control" id="bay_ex" name="bay">#}
+    {#                                <option value="">请选择</option>#}
+    {#                                {% for bay in bay_list %}#}
+    {#                                    <option value="{{ bay.id }}">{{ bay.id }}({{ bay.bay }})</option>#}
+    {#                                {% endfor %}#}
+    {#                            </select>#}
+    {#                        </div>#}
+    {#                        <div class="col-md-3">#}
+    {#                            <label for="space">计划出口箱位</label>#}
+    {#                            <input type="text" class="form-control" id="ex_space" name="ex_space" placeholder="请输入计划箱位"#}
+    {#                                   maxlength="6" min="6" oninput="value=value.replace(/[^\d]/g,'')">#}
+    {#                        </div>#}
+    {#                        <div class="col-md-3">#}
+    {#                            <label for="iso_no">箱号</label>#}
+    {#                            <input type="text" class="form-control" id="ex_iso_no" name="ex_iso_no"#}
+    {#                                   placeholder="请输入iso号" maxlength="11" min="11"#}
+    {#                                   oninput="value=value.replace(/[^\d]/g,'')">#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                    <div class="row">#}
+    {#                        <div class="col-md-offset-2 col-md-3">#}
+    {#                            <label for="size">尺寸</label>#}
+    {#                            <select class="form-control" name="ex_size" id="ex_size">#}
+    {#                                <option value="1" selected>20ft</option>#}
+    {#                                <option value="2">40ft</option>#}
+    {#                            </select>#}
+    {#                        </div>#}
+    {#                        <div class="col-md-3">#}
+    {#                            <label for="weight">重量(单位:kg)</label>#}
+    {#                            <input type="text" class="form-control" id="ex_weight" name="ex_weight" placeholder="请输入箱重">#}
+    {#                        </div>#}
+    {#                        <div class="col-md-3 ">#}
+    {#                            <div class="form-group">#}
+    {#                                <label for="type">是否特殊箱</label>#}
+    {#                                <select class="form-control" id="ex_type_yn" name="ex_type_yn">#}
+    {#                                    <option value="True">是</option>#}
+    {#                                    <option value="False" selected>否</option>#}
+    {#                                </select>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        <div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </form>#}
+    {#                <div class="row">#}
+    {#                    <div class="col-md-12">#}
+    {#                        <button class="btn btn-warning center-block" form="container-export-form" type="button"#}
+    {#                                formmethod="post" id="container_export_btn">提交#}
+    {#                        </button>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    <script>
+        // 船信息录入
+        $("#vessel_btn").click(function () {
+            //  校验表单不能为空 正则匹配这里可以加
+            if (
+                $("#en_name").val() == '' ||
+                $("#cn_name").val() == ''
+            ) {
+                alert('必填项不能为空！')
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: '/vesselInfo_input/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: $("#vessel-form").serialize(),
+                    success: function (ret) {
+                        if (ret.code === 0) {
+                            alert(ret.msg);
+                        } else {
+                            alert(ret.msg)
+                        }
+                    }
+                })
+            }
+        });
+
+        // 进口箱信息录入
+        $("#container_btn").click(function () {
+            //  校验表单不能为空 正则匹配这里可以加
+            if (
+                // 箱号
+                $("#vessel").val() == '' ||
+                // 航次
+                $("#voy").val() == '' ||
+                // 贝位
+                $("#bay").val() == '' ||
+                // 箱位
+                $("#space").val() == '' ||
+                // 尺寸
+                $("#size").val() == '' ||
+                // 箱重
+                $("#weight").val() == '' ||
+                // 选择进出口
+                $("#voy_type").val() == '' ||
+                // 是否特殊箱
+                $("#type_yn").val() == ''
+            ) {
+                alert('必填项不能为空！')
+            } else {
+                if ($("#space").val().length == 6) {
+                    $.ajax({
+                        type: "post",
+                        url: '/container_input/',
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        },
+                        data: $("#container-import-form").serialize(),
+                        success: function (ret) {
+                            if (ret.code === 0) {
+                                alert(ret.msg);
+                            } else {
+                                alert(ret.msg)
+                            }
+                        }
+                    })
+                } else {
+                    alert('箱位必须位6位数！')
+                }
+            }
+        });
+
+        // 获取进口航次信息
+        $('#vessel').on('change', function () {
+            var vessel_id = $('#vessel option:selected');
+            console.log('vessel_id--->', vessel_id.val())
+            $.ajax({
+                type: 'get',
+                url: '/get_voy_info/',
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                data: {
+                    vessel_id: vessel_id.val()
+                },
+                success: function (res) {
+                    console.log('res:', res)
+                    if (res.voy_info_list) {
+                        var html = '';
+                        voy_info_list = res.voy_info_list;
+                        for (var i = 0; i < voy_info_list.length; i++) {
+                            html += "<option value=" + voy_info_list[i]['id'] + " >" + "进口航次：" + voy_info_list[i]['voy_im'] + "出口航次：" + voy_info_list[i]['voy_ex'] + "</option>"
+                        }
+                        $("#voy").empty();
+                        $('#voy').append(html)
+                    }
+                }
+            })
+        });
+        // 获取出口航次信息
+        $('#vessel_select2').on('change', function () {
+            var vessel_id = $('#vessel_select2 option:selected');
+            console.log('vessel_id--->', vessel_id.val())
+            $.ajax({
+                type: 'get',
+                url: '/get_voy_ex_info/',
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                data: {
+                    vessel_id: vessel_id.val()
+                },
+                success: function (res) {
+                    console.log('res:', res)
+                    if (res.voy_ex_info_list) {
+                        var html = '';
+                        voy_ex_info_list = res.voy_ex_info_list;
+                        for (var i = 0; i < voy_ex_info_list.length; i++) {
+                            html += "<option value=" + voy_ex_info_list[i]['id'] + " >" + voy_ex_info_list[i]['voy_ex'] + "</option>"
+                        }
+                        $("#voy_ex_select").empty();
+                        $('#voy_ex_select').append(html)
+                    }
+                }
+            })
+        });
+    </script>
+{% endblock %}

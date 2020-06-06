@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}用户添加{% endblock %}
+{% block style %}
+    .row{
+    margin:20px;}
+{% endblock %}
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			用户添加
+		</h3>
+	</div>
+	<div class="panel-body">
+        <div class=container-fluid>
+            <form role="form" id="user_id">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <label for="user_id">工号</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="请输入工号" maxlength="6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <label for="name">姓名</label>
+                        <input type="text" class="form-control" id="name" name="name"  placeholder="请输入姓名" maxlength="20">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <label for="code">密码</label>
+                        <input type="text" class="form-control" id="code"  name="code" placeholder="请输入密码" maxlength="6">
+                    </div>
+                </div>
+            </form>
+        <div class="row">
+            <div  class="col-md-12">
+                <button class="btn btn-primary center-block" form="vessel-form" type="submit" formmethod="post">确认添加</button>
+            </div>
+        </div>
+    </div>
+	</div>
+</div>
+{% endblock %}

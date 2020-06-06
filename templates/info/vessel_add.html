@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}船舶记录添加{% endblock %}
+{% block style %}
+    .row{
+    margin:20px;}
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                船舶记录添加
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class=container-fluid>
+                <form role="form" id="vessel-form">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="en_name">英文船名</label>
+                            <input type="text" class="form-control" id="en_name" name="en_name" placeholder="请输入英文船名"
+                                   maxlength="18">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <label for="cn_name">中文船名</label>
+                            <input type="text" class="form-control" id="cn_name" name="cn_name" placeholder="请输入中文船名"
+                                   maxlength="18">
+                        </div>
+                    </div>
+{#                    <div class="row">#}
+{#                        <div class="col-md-4 col-md-offset-4">#}
+{#                            <label for="voy_export">出口航次</label>#}
+{#                            <input type="text" class="form-control" id="voy_export" name="voy_export"#}
+{#                                   placeholder="请输入出口航次" maxlength="10">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-md-4 col-md-offset-4">#}
+{#                            <label for="voy_import">进口航次</label>#}
+{#                            <input type="text" class="form-control" id="voy_import" name="voy_import"#}
+{#                                   placeholder="请输入进口航次" maxlength="6">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-md-4 col-md-offset-4">#}
+{#                            <label for="d_time_plan">计划离泊时间</label>#}
+{#                            <input type="datetime-local" class="form-control" id="d_time_plan" name="d_time_plan"#}
+{#                                   placeholder="请输入计划离泊时间">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-md-4 col-md-offset-4">#}
+{#                            <label for="b_time_plan">计划靠泊时间</label>#}
+{#                            <input type="datetime-local" class="form-control" id="b_time_plan" name="b_time_plan"#}
+{#                                   placeholder="请输入计划靠泊时间">#}
+{#                        </div>#}
+{#                    </div>#}
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary center-block" form="vessel-form" type="button" formmethod="post"
+                                id="vessel_btn">确认添加
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#vessel_btn").click(function () {
+            //  校验表单不能为空 正则匹配这里可以加
+            if (
+                $("#en_name").val() == '' ||
+                $("#cn_name").val() == ''
+            ) {
+                alert('必填项不能为空！')
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: '/vesselInfo_input/',
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: $("#vessel-form").serialize(),
+                    success: function (ret) {
+                        if (ret.code === 0) {
+                            alert(ret.msg);
+                            $("#vessel-form")[0].reset();
+                        } else {
+                            alert(ret.msg)
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+{% endblock %}
